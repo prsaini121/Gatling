@@ -1,0 +1,117 @@
+RUN	computerdatabase.ComputerDatabaseSimulation	computerdatabasesimulation	1722604002291	 	3.11.5
+USER	Users	START	1722604004193
+USER	Admins	START	1722604004193
+USER	Users	START	1722604005032
+USER	Users	START	1722604006028
+USER	Users	START	1722604007022
+REQUEST		Home	1722604006026	1722604007647	OK	 
+USER	Users	START	1722604008021
+REQUEST		Home Redirect 1	1722604007713	1722604008117	OK	 
+REQUEST		Home	1722604007017	1722604008564	OK	 
+REQUEST		Home Redirect 1	1722604008566	1722604008830	OK	 
+USER	Admins	START	1722604009017
+USER	Users	START	1722604009019
+REQUEST		Search	1722604009159	1722604009409	OK	 
+USER	Users	START	1722604010019
+REQUEST		Search	1722604009834	1722604010115	OK	 
+USER	Users	START	1722604011019
+REQUEST		Select	1722604010778	1722604011033	OK	 
+REQUEST		Select	1722604011138	1722604011411	OK	 
+REQUEST		Home	1722604011017	1722604011740	OK	 
+REQUEST		Home Redirect 1	1722604011741	1722604012014	OK	 
+USER	Users	START	1722604012018
+REQUEST		Page 0	1722604012057	1722604012313	OK	 
+REQUEST		Page 0	1722604012414	1722604012672	OK	 
+USER	Users	START	1722604013017
+REQUEST		Search	1722604013017	1722604013265	OK	 
+REQUEST		Page 1	1722604013324	1722604013583	OK	 
+REQUEST		Page 1	1722604013674	1722604013931	OK	 
+REQUEST		Home	1722604004173	1722604014224	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Home	1722604004173	1722604014221	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Select	1722604014272	1722604014541	OK	 
+REQUEST		Home	1722604013016	1722604014818	OK	 
+REQUEST		Page 2	1722604014586	1722604014855	OK	 
+REQUEST		Home	1722604005024	1722604015058	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Home Redirect 1	1722604014820	1722604015080	OK	 
+REQUEST		Page 2	1722604014935	1722604015199	OK	 
+REQUEST		Page 0	1722604015544	1722604015793	OK	 
+REQUEST		Page 3	1722604015858	1722604016112	OK	 
+REQUEST		Search	1722604016084	1722604016337	OK	 
+REQUEST		Page 3	1722604016202	1722604016467	OK	 
+REQUEST		Page 1	1722604016796	1722604017041	OK	 
+USER	Users	END	1722604017123
+USER	Users	END	1722604017471
+REQUEST		Select	1722604017352	1722604017608	OK	 
+REQUEST		Home	1722604008018	1722604018033	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 2	1722604018043	1722604018287	OK	 
+REQUEST		Page 0	1722604018611	1722604018871	OK	 
+REQUEST		Home	1722604009017	1722604019037	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Home	1722604009016	1722604019038	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 3	1722604019290	1722604019536	OK	 
+REQUEST		Home	1722604010017	1722604020027	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 1	1722604019877	1722604020137	OK	 
+USER	Users	END	1722604020541
+REQUEST		Page 2	1722604021140	1722604021393	OK	 
+REQUEST		Home	1722604012016	1722604022030	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 3	1722604022395	1722604022652	OK	 
+USER	Users	END	1722604023655
+REQUEST		Search	1722604015243	1722604025251	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Search	1722604015242	1722604025251	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Search	1722604016061	1722604026072	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+ERROR	Select: No attribute named 'computerUrl' is defined 	1722604026276
+ERROR	Select: No attribute named 'computerUrl' is defined 	1722604026276
+ERROR	Select: No attribute named 'computerUrl' is defined 	1722604027073
+REQUEST		Search	1722604019036	1722604029043	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+ERROR	Select: No attribute named 'computerUrl' is defined 	1722604030045
+REQUEST		Search	1722604020041	1722604030048	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Search	1722604020042	1722604030051	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Search	1722604021031	1722604031036	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+ERROR	Select: No attribute named 'computerUrl' is defined 	1722604031049
+ERROR	Select: No attribute named 'computerUrl' is defined 	1722604031052
+ERROR	Select: No attribute named 'computerUrl' is defined 	1722604032038
+REQUEST		Search	1722604023032	1722604033037	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+ERROR	Select: No attribute named 'computerUrl' is defined 	1722604034039
+REQUEST		Page 0	1722604027277	1722604037283	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 0	1722604027277	1722604037290	KO	j.n.c.ClosedChannelException
+REQUEST		Page 0	1722604028075	1722604038106	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 0	1722604031046	1722604041053	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 0	1722604032051	1722604042057	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 0	1722604032053	1722604042059	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 0	1722604033040	1722604043075	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 0	1722604035041	1722604045046	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 1	1722604038284	1722604048288	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 1	1722604038291	1722604048294	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 1	1722604039107	1722604049111	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 1	1722604042055	1722604052063	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 1	1722604043059	1722604053063	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 1	1722604043061	1722604053065	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 1	1722604044077	1722604054135	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 1	1722604046048	1722604056053	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 2	1722604049290	1722604059301	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 2	1722604049295	1722604059302	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 2	1722604050112	1722604060117	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 2	1722604053065	1722604063074	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 2	1722604054066	1722604064070	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 2	1722604054066	1722604064070	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 2	1722604055137	1722604065165	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 2	1722604057055	1722604067060	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 3	1722604060303	1722604070308	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 3	1722604060303	1722604070308	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 3	1722604061119	1722604071125	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+USER	Users	END	1722604071310
+USER	Users	END	1722604072128
+REQUEST		Page 3	1722604064076	1722604074208	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 3	1722604065071	1722604075076	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Page 3	1722604065072	1722604075077	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+USER	Users	END	1722604075211
+USER	Users	END	1722604076080
+REQUEST		Page 3	1722604066167	1722604076173	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+USER	Users	END	1722604077176
+REQUEST		Page 3	1722604068064	1722604078075	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+USER	Users	END	1722604079077
+REQUEST		Form	1722604071310	1722604081315	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+REQUEST		Form	1722604076079	1722604086085	KO	j.n.c.ClosedChannelException
+REQUEST		Form	1722604081334	1722604091343	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+USER	Admins	END	1722604091348
+REQUEST		Form	1722604086087	1722604096096	KO	i.n.h.s.SslHandshakeTimeoutException: handshake timed out after 10000ms
+USER	Admins	END	1722604096098

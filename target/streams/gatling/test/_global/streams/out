@@ -1,0 +1,10 @@
+[0m[[0m[0mdebug[0m] [0m[0mjavaOptions: Vector(-Djdk.debug=release, -Dsbt.script=/home/linuxbrew/.linuxbrew/Cellar/sbt/1.10.1/libexec/bin/sbt, -Dsbt.ipcsocket.tmpdir=/run/user/1000/.sbtefb86fbc/ipcsocket, -Dswoval.tmpdir=/run/user/1000/.sbtefb86fbc/swoval, -Dstdout.encoding=UTF-8, -Djna.nosys=true, -Dlog4j.ignoreTCL=true, -Djnidispatch.path=/home/thor/.cache/JNA/temp/jna6863030831962325878.tmp, -Djna.platform.library.path=/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/lib64:/lib64:/usr/lib:/lib:/usr/lib/x86_64-linux-gnu/libfakeroot:/usr/lib/wsl/lib, -Djna.loaded=true, -Dnative.encoding=UTF-8, -Dstderr.encoding=UTF-8, -Dscala.ext.dirs=/home/thor/.sbt/1.0/java9-rt-ext-homebrew_22_0_2, -server, -XX:+HeapDumpOnOutOfMemoryError, -XX:MaxInlineLevel=20, -XX:MaxTrivialSize=12, -Xmx1G)[0m
+[0m[[0m[0mdebug[0m] [0m[0mForking tests - parallelism = false[0m
+[0m[[0m[0mdebug[0m] [0m[0mCreate a single-thread test executor[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunner for io.gatling.sbt.GatlingFramework produced 1 initial tasks for 1 tests.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(computerdatabase.ComputerDatabaseSimulation, sbt.ForkMain$SubclassFingerscan@18ef96, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0mSimulation ComputerDatabaseSimulation successful.[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0minfo[0m] [0m[0mSimulation(s) execution ended.[0m
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	computerdatabase.ComputerDatabaseSimulation[0m
