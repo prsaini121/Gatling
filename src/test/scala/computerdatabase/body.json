@@ -1,0 +1,40 @@
+[
+    {
+"memberidentifier": "182293124451160",
+"externalOrderId": "${externalOrderId}",
+"changeMoneyToRedeem": null,
+"nexusPointsToRedeem": null,
+"changeMoneyToReward": 0,
+"giftVoucherAmount": 0,
+"salesforceVoucherAmount": 0,
+"isGiftVoucherPurchase": false,
+"countOfSustainableBags": 6,
+"paidAmount": 230,
+"totalAmount": 250,
+"totalOrderPromotionalAmount": 0,
+"totalProductPromotionalAmount": 0,
+"invoiceNumber": "1244444aa,6",
+"invoiceDate": "2024-09-09",
+"outletCode": "O",
+"posUser": "O",
+"paymentMode": "Cash",
+"previousTransactionJournalId": null,
+"voucherCode": null,
+"products": [
+ {
+     "name": "Any1",
+     "sku": "TESTPROD6",
+     "salesPrice": 10,
+     "quantity": 10,
+     "totalpromotionalamount": 0
+ },
+ {
+     "name": "Any2",
+     "sku": "TESTPROD2",
+     "salesPrice": 15,
+     "quantity": 10,
+     "totalpromotionalamount": 0
+ }
+]
+}
+    ]
