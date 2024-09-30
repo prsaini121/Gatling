@@ -1,4 +1,0 @@
-RUN	computerdatabase.MySimulation	mysimulation	1723205292366	 	3.11.5
-USER	My Scenario	START	1723205295943
-REQUEST		Post JSON Request	1723205295907	1723205297513	KO	status.find.is(200), but actually found 201
-USER	My Scenario	END	1723205297838
