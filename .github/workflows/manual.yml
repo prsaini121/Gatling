@@ -96,9 +96,9 @@ jobs:
           TEST_SUITE=${{matrix.test_type}}
           echo "Running on runner ${{ matrix.runner }} in environment $PLUTO_ENV with suite $TEST_SUITE"
           
-          if [[ "${{ github.event.inputs.schedule }}" == "*/2 * * * *" && "${TEST_SUITE}" == "integration-test" ]]; then
+          if [[ "${{ github.event.schedule }}" == "*/2 * * * *" && "${TEST_SUITE}" == "integration-test" ]]; then
             echo "Running integration tests on $PLUTO_ENV..."
-          elif [[ "${{ github.event.inputs.schedule }}" == "*/3 * * * *" && "${TEST_SUITE}" == "decision-trees-test" ]]; then
+          elif [[ "${{ github.event.schedule }}" == "*/3 * * * *" && "${TEST_SUITE}" == "decision-trees-test" ]]; then
             echo "Running decision-trees tests on $PLUTO_ENV..."
           else
             echo "Test type or environment mismatch. Exiting with failure."
