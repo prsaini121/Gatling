@@ -1,31 +1,30 @@
-
 name: "[Compute Platform] Integration Tests"
-#Run tests for Compute platform after merge and as cron job
+# Run tests for Compute Platform after merge and as a cron job
 on:
-  schedule: # Trigger for pluto_integration_tests
-    - cron:  '*/2 * * * *'  #  --> Runs in schedule for integration tests
-    - cron:  '*/3 * * * *'  #  --> Runs in schedule for autorecovery integration tests
-  workflow_dispatch:
+  schedule: # Trigger for scheduled integration tests
+    - cron: '*/2 * * * *' # Runs scheduled integration tests
+    - cron: '*/3 * * * *' # Runs scheduled autorecovery integration tests
+    - cron: '*/5 * * * *'
+  workflow_dispatch: # Manual trigger
     inputs:
       environment:
-        description: 'Choose the environment to run tests on (e.g., dev, prod)'
+        description: "Choose the environment to run tests on (e.g., dev, prod)"
         required: true
-        default: 'dev'
+        default: "dev"
         type: choice
         options:
           - dev
           - stage
           - prod
       test_suite:
-        description: 'Specify which tests to run (e.g., on_demand, integration)'
+        description: "Specify which tests to run (e.g., on_demand, integration)"
         required: true
-        default: 'Integration-Tests'
+        default: "Integration-Tests"
         type: choice
         options:
           - pluto_integration_tests
           - pluto_ondemand_tests
           - Autorecovery_integration_test
-
 
 env:
   SECRET_GITHUB_ACCESS_TOKEN: ${{ secrets.GH_PAT }}
@@ -40,47 +39,44 @@ env:
   COLLIGO_MODEL_CACHE_DIR: "/mnt/localssd/colligo_cache"
   ACTIONS_STEP_DEBUG: true
   UV_LINK_MODE: "symlink"
-  SLACK_WEBHOOK_URL : "https://hooks.slack.com/services/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"
-
+  SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
 
 jobs:
-
   setup:
-    if: (github.event.inputs.environment=='dev' && github.event.inputs.test_suite=='pluto_integration_tests')
+    if: github.event.inputs.environment == 'dev' && github.event.inputs.test_suite == 'pluto_integration_tests'
     runs-on: ubuntu-latest
     outputs:
-      runner: ${{ steps.step1.outputs.runner }}
+      runner: ${{ steps.determine_runner.outputs.runner }}
     steps:
-      - name: Set-up-runners
-        id: step1
+      - name: Determine Runner
+        id: determine_runner
         run: |
-          if [ ${{ github.event.inputs.environment }} == 'prod' ]; then
+          if [ "${{ github.event.inputs.environment }}" == "prod" ]; then
             echo "runner=macos-latest" >> $GITHUB_OUTPUT
           else
             echo "runner=ubuntu-latest" >> $GITHUB_OUTPUT
           fi
 
-  Tests: # Workflow for Manual Tests
+  Tests: # Workflow for manual tests
     needs: [setup]
-    name: 'Tests'
-    if: github.event_name == 'workflow_dispatch' &&  (github.event.inputs.environment=='dev' && github.event.inputs.test_suite=='pluto_integration_tests')
+    name: 'Manual Tests'
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'dev' && github.event.inputs.test_suite == 'pluto_integration_tests'
     runs-on: ${{ needs.setup.outputs.runner }}
     steps:
-      - name: Run tests
-        run: |
-          echo "mannual success"
+      - name: Run Tests
+        run: echo "Manual test success"
       - name: Send notification to Slack on failure
         if: ${{ failure() }}
-        run: |
-    
-          echo "Notification sent"
-  scedule_tests: #Workflow for schedule
-    name: 'Schedule Run Tests'
+        run: echo "Notification sent to Slack"
+
+  schedule_tests: # Workflow for scheduled tests
+    name: 'Scheduled Tests'
     if: github.event_name == 'schedule'
     runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
-        environment: [dev,stage,prod]
+        environment: [dev, stage, prod]
+        test_type: [integration-test, decision-trees-test]
         include:
           - environment: dev
             runner: ubuntu-latest
@@ -88,41 +84,26 @@ jobs:
             runner: ubuntu-latest
           - environment: prod
             runner: macos-latest
-        test_type: [integration-test, decision-trees-test]
         exclude:
           - environment: dev
             test_type: decision-trees-test
       fail-fast: false
       max-parallel: 1
     steps:
-      - name: Run tests
+      - name: Run Tests
         run: |
           PLUTO_ENV=${{ matrix.environment }}
-          TEST_SUITES=${{ matrix.test_type }}
-          echo "Running on runner ${{matrix.environment.runner}}"
-          if [ "${{ github.event.schedule }}" == "*/2 * * * *" && ${ TEST_SUITES }" == "integration-test" ]; then
-            echo "Running integration tests on ${{ matrix.env }}..."
-            if(${{ matrix.env }} == "dev"); then
-              echo "running fial "
-              exit 1
-            else
-              echo "running success "
-            fi
-            echo "running success "
+          TEST_SUITE=${{ matrix.test_type }}
+          echo "Running on runner ${{ matrix.runner }} in environment $PLUTO_ENV with suite $TEST_SUITE"
           
-          elif [ "${{ github.event.schedule }}" == "*/3 * * * *" &&  ${{ matrix.test_type }}" == "decision-trees-test" ]; then
-            echo "Running decision trees tests on ${{ matrix.env }}..."
-            echo "running success "
-          elif (${{ matrix.env }} == "dev"); then
-              echo "running fial "
-              exit 1
-            EXIT_CODE=true
-            echo "EXIT_CODE=$EXIT_CODE" >> $GITHUB_ENV
-            echo "Schedule skipped for ${TEST_SUITES} on ${PLUTO_ENV} due to cron ${{ github.event.schedule }}"
-            exit 0
+          if [[ "${{ github.event.inputs.schedule }}" == "*/2 * * * *" && "$TEST_SUITE" == "integration-test" ]]; then
+            echo "Running integration tests on $PLUTO_ENV..."
+          elif [[ "${{ github.event.inputs.schedule }}" == "*/3 * * * *" && "$TEST_SUITE" == "decision-trees-test" ]]; then
+            echo "Running decision-trees tests on $PLUTO_ENV..."
+          else
+            echo "Test type or environment mismatch. Exiting with failure."
+            exit 1
           fi
-    
       - name: Send notification to Slack on failure
         if: ${{ failure() }}
-        run: |
-          echo "notification sent"
+        run: echo "Notification sent to Slack due to failure"
