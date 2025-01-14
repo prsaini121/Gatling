@@ -102,8 +102,16 @@ jobs:
             echo "Running decision-trees tests on $PLUTO_ENV..."
           else
             echo "Test type or environment mismatch. Exiting with failure."
-            exit 1
+            EXIT_CODE=true
+            echo "EXIT_CODE=$EXIT_CODE" >> $GITHUB_ENV
+            echo "Schedule skipped for ${TEST_SUITES} on ${PLUTO_ENV} due to cron ${{ github.event.schedule }}"
+            exit 0
           fi
+      - name: Generate report
+        if : ${{( success() || failure()) && !cancelled() && env.EXIT_CODE != 'true'}}
+        uses: ./.github/actions/colligo_generate_job_summary
+        with:
+          SUMMARY_TITLE: 'Pluto ${TESTS_SUITE} on ${PLUTO_ENV} Report'
       - name: Send notification to Slack on failure
         if: ${{ failure() }}
         run: echo "Notification sent to Slack due to failure"
