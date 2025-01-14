@@ -102,7 +102,14 @@ jobs:
           echo "Running on runner ${{matrix.environment.runner}}"
           if [ "${{ github.event.schedule }}" == "*/2 * * * *" && ${ TEST_SUITES }" == "integration-test" ]; then
             echo "Running integration tests on ${{ matrix.env }}..."
+            if(${{ matrix.env }} == "dev"); then
+              echo "running fial "
+              exit 1
+            else
+              echo "running success "
+            fi
             echo "running success "
+          
           elif [ "${{ github.event.schedule }}" == "*/3 * * * *" &&  ${{ matrix.test_type }}" == "decision-trees-test" ]; then
             echo "Running decision trees tests on ${{ matrix.env }}..."
             echo "running success "
