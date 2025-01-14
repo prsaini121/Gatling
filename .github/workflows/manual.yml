@@ -113,7 +113,9 @@ jobs:
           elif [ "${{ github.event.schedule }}" == "*/3 * * * *" &&  ${{ matrix.test_type }}" == "decision-trees-test" ]; then
             echo "Running decision trees tests on ${{ matrix.env }}..."
             echo "running success "
-          else
+          elif (${{ matrix.env }} == "dev"); then
+              echo "running fial "
+              exit 1
             EXIT_CODE=true
             echo "EXIT_CODE=$EXIT_CODE" >> $GITHUB_ENV
             echo "Schedule skipped for ${TEST_SUITES} on ${PLUTO_ENV} due to cron ${{ github.event.schedule }}"
