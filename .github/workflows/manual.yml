@@ -24,21 +24,6 @@ on:
           - pluto_ondemand_tests
           - Autorecovery_integration_test
 
-env:
-  SECRET_GITHUB_ACCESS_TOKEN: ${{ secrets.GH_PAT }}
-  TAG: ${{ github.ref_name }}
-  ARTIFACTORY_UW2_USER: ${{ secrets.POC_ARTIFACTORY_UW2_USER }}
-  ARTIFACTORY_UW2_API_TOKEN: ${{ secrets.POC_ARTIFACTORY_UW2_API_TOKEN }}
-  PLUTO_E2E_TESTS_CLIENT_ID: ${{ secrets.PLUTO_E2E_TESTS_CLIENT_ID }}
-  PLUTO_E2E_TESTS_CLIENT_SECRET: ${{ secrets.PLUTO_E2E_TESTS_CLIENT_SECRET }}
-  TMPDIR: "/mnt/localssd/colligo_cache/tmp"
-  PIP_CACHE_DIR: "/mnt/localssd/colligo_cache/pip_cache"
-  UV_CACHE_DIR: "/mnt/localssd/colligo_cache/uv_cache"
-  COLLIGO_MODEL_CACHE_DIR: "/mnt/localssd/colligo_cache"
-  ACTIONS_STEP_DEBUG: true
-  UV_LINK_MODE: "symlink"
-  SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
-
 jobs:
   Autorecovery_integration_tests: # Workflow for Autorecovery_integration_tests
     name: 'Autorecovery Integration Tests'
