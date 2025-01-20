@@ -3,8 +3,6 @@ name: "[Compute Platform] Integration Tests"
 on:
   schedule: # Trigger for scheduled integration tests
     - cron: '*/2 * * * *' # Runs scheduled integration tests
-    - cron: '*/3 * * * *' # Runs scheduled autorecovery integration tests
-    - cron: '*/5 * * * *'
   workflow_dispatch: # Manual trigger
     inputs:
       environment:
@@ -42,76 +40,28 @@ env:
   SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/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"
 
 jobs:
-  setup:
-    if: github.event.inputs.environment == 'dev' && github.event.inputs.test_suite == 'pluto_integration_tests'
-    runs-on: ubuntu-latest
-    outputs:
-      runner: ${{ steps.determine_runner.outputs.runner }}
+  Autorecovery_integration_tests: # Workflow for Autorecovery_integration_tests
+    name: 'Autorecovery Integration Tests'
+    if: github.event_name.schedule == '*/2 * * * *' || (github.event_name == 'workflow_dispatch' && github.event.inputs.test_suite == 'Autorecovery-Integration-Test' && github.event.inputs.environment == 'stage')
+    runs-on:
+      - scale-set-runners-cpu
     steps:
-      - name: Determine Runner
-        id: determine_runner
+      - name: Checkout project
+      - name: Setup venv
+        
+      - name: Run tests
         run: |
-          if [ "${{ github.event.inputs.environment }}" == "prod" ]; then
-            echo "runner=macos-latest" >> $GITHUB_OUTPUT
+          if [ "${{ github.event.inputs.environment }}" == "" ]; then
+            if [ "${{ github.event.schedule }}" == "0 */12 * * *" ]; then
+                PLUTO_ENV=stage
+                echo 'stage'
+            fi
           else
-            echo "runner=ubuntu-latest" >> $GITHUB_OUTPUT
+              PLUTO_ENV=${{ github.event.inputs.environment }}
           fi
-
-  Tests: # Workflow for manual tests
-    needs: [setup]
-    name: 'Manual Tests'
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'dev' && github.event.inputs.test_suite == 'pluto_integration_tests'
-    runs-on: ${{ needs.setup.outputs.runner }}
-    steps:
-      - name: Run Tests
-        run: echo "Manual test success"
+          echo "PLUTO_ENV=$PLUTO_ENV" >> $GITHUB_ENV
       - name: Send notification to Slack on failure
         if: ${{ failure() }}
-        run: echo "Notification sent to Slack"
-
-  schedule_tests: # Workflow for scheduled tests
-    name: 'Scheduled Tests'
-    if: github.event_name == 'schedule'
-    runs-on: ${{ matrix.runner }}
-    strategy:
-      matrix:
-        environment: [dev, stage, prod]
-        test_type: [integration-test, decision-trees-test]
-        include:
-          - environment: dev
-            runner: ubuntu-latest
-          - environment: stage
-            runner: ubuntu-latest
-          - environment: prod
-            runner: macos-latest
-        exclude:
-          - environment: dev
-            test_type: decision-trees-test
-      fail-fast: false
-      max-parallel: 1
-    steps:
-      - name: Run Tests
         run: |
-          PLUTO_ENV=${{matrix.environment}}
-          TEST_SUITE=${{matrix.test_type}}
-          echo "Running on runner ${{ matrix.runner }} in environment $PLUTO_ENV with suite $TEST_SUITE"
+            echo "GitHub Step Summary File:"
           
-          if [[ "${{ github.event.schedule }}" == "*/2 * * * *" && "${TEST_SUITE}" == "integration-test" ]]; then
-            echo "Running integration tests on $PLUTO_ENV..."
-          elif [[ "${{ github.event.schedule }}" == "*/3 * * * *" && "${TEST_SUITE}" == "decision-trees-test" ]]; then
-            echo "Running decision-trees tests on $PLUTO_ENV..."
-          else
-            echo "Test type or environment mismatch. Exiting with failure."
-            EXIT_CODE=true
-            echo "EXIT_CODE=$EXIT_CODE" >> $GITHUB_ENV
-            echo "Schedule skipped for ${TEST_SUITES} on ${PLUTO_ENV} due to cron ${{ github.event.schedule }}"
-            exit 0
-          fi
-      - name: Generate report
-        if : ${{( success() || failure()) && !cancelled() && env.EXIT_CODE != 'true'}}
-        uses: ./.github/actions/colligo_generate_job_summary
-        with:
-          SUMMARY_TITLE: 'Pluto ${TESTS_SUITE} on ${PLUTO_ENV} Report'
-      - name: Send notification to Slack on failure
-        if: ${{ failure() }}
-        run: echo "Notification sent to Slack due to failure"
