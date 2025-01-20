@@ -2,7 +2,7 @@ name: "[Compute Platform] Integration Tests"
 # Run tests for Compute Platform after merge and as a cron job
 on:
   schedule: # Trigger for scheduled integration tests
-    - cron: '*/2 * * * *' # Runs scheduled integration tests
+    - cron: '*/2 * * * *' # Runs scheduled integration tests every 2 minutes
   workflow_dispatch: # Manual trigger
     inputs:
       environment:
@@ -17,7 +17,7 @@ on:
       test_suite:
         description: "Specify which tests to run (e.g., on_demand, integration)"
         required: true
-        default: "Integration-Tests"
+        default: "pluto_integration_tests"
         type: choice
         options:
           - pluto_integration_tests
@@ -26,27 +26,36 @@ on:
 
 jobs:
   Autorecovery_integration_tests: # Workflow for Autorecovery_integration_tests
-    name: 'Autorecovery Integration Tests'
-    if: github.event_name.schedule == '*/2 * * * *' || (github.event_name == 'workflow_dispatch' && github.event.inputs.test_suite == 'Autorecovery-Integration-Test' && github.event.inputs.environment == 'stage')
-    runs-on:
-      - scale-set-runners-cpu
+    name: "Autorecovery Integration Tests"
+    if: >-
+      github.event.schedule == '*/2 * * * *' || 
+      (github.event_name == 'workflow_dispatch' &&
+       github.event.inputs.test_suite == 'Autorecovery_integration_test' &&
+       github.event.inputs.environment == 'stage')
+    runs-on: scale-set-runners-cpu
     steps:
       - name: Checkout project
-      - name: Setup venv
-        
-      - name: Run tests
+        uses: actions/checkout@v3
+
+      - name: Setup Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
         run: |
-          if [ "${{ github.event.inputs.environment }}" == "" ]; then
-            if [ "${{ github.event.schedule }}" == "0 */12 * * *" ]; then
-                PLUTO_ENV=stage
-                echo 'stage'
-            fi
-          else
-              PLUTO_ENV=${{ github.event.inputs.environment }}
-          fi
-          echo "PLUTO_ENV=$PLUTO_ENV" >> $GITHUB_ENV
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Run tests
+        env:
+          PLUTO_ENV: ${{ github.event.inputs.environment || 'stage' }}
+        run: |
+          echo "Running tests in PLUTO_ENV=$PLUTO_ENV"
+      
       - name: Send notification to Slack on failure
         if: ${{ failure() }}
         run: |
-            echo "GitHub Step Summary File:"
-          
+          echo "Tests failed. Sending notification to Slack..."
+      
