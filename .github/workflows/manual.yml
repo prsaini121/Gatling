@@ -28,7 +28,7 @@ jobs:
   Autorecovery_integration_tests: # Workflow for Autorecovery_integration_tests
     name: "Autorecovery Integration Tests"
     if: >-
-      github.event.schedule == '*/2 * * * *' || 
+      (github.event.schedule != '*/3 * * * *' && github.event_name == 'schedule') || 
       (github.event_name == 'workflow_dispatch' &&
        github.event.inputs.test_suite == 'Autorecovery_integration_test' &&
        github.event.inputs.environment == 'stage')
